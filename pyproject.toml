@@ -47,7 +47,7 @@ dev = [
 extra-index-url = [
   "https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple",
 ]
-    
+
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [
@@ -129,7 +129,7 @@ where = ["src"]
 
 [project.entry-points.'nomad.plugin']
 
-schema_package_entry_point = "nomad_eln_mirage.schema_packages:schema_package_entry_point"
+eln_mirage = "nomad_eln_mirage.schema_packages:eln_mirage"
 
 
 
