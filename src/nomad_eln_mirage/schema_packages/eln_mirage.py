@@ -16,10 +16,28 @@
 # limitations under the License.
 #
 
+import datetime
+
 from nomad.datamodel.data import EntryData
-from nomad.metainfo import Datetime, Package, Quantity, Section
+from nomad.metainfo import Datetime, Package, Quantity, Section, SubSection
 
 m_package = Package(name='ELN Mirage')
+
+
+class ELNMiragePlainQuantities(EntryData):
+    m_def = Section()
+
+    plain_bool = Quantity(type=bool, description='Plain boolean', default=True)
+    plain_int = Quantity(type=int, description='Plain integer', default=12)
+    plain_float = Quantity(type=float, description='Plain float', default=2.718)
+    plain_str = Quantity(type=str, description='Plain string', default='foobar')
+    plain_datetime = Quantity(
+        type=Datetime,
+        description='Plain datetime',
+        default=datetime.datetime(
+            2020, 2, 20, 20, 20, 20, tzinfo=datetime.timezone.utc
+        ),
+    )
 
 
 class ELNMirage(EntryData):
@@ -29,11 +47,7 @@ class ELNMirage(EntryData):
 
     m_def = Section()
 
-    bool_plain = Quantity(type=bool, description='A boolean')
-    int_plain = Quantity(type=int, description='An integer')
-    float_plain = Quantity(type=float, description='A float')
-    string_plain = Quantity(type=str, description='A string')
-    datetime_plain = Quantity(type=Datetime, description='A datetime')
+    plain_quantities = SubSection(section_def=ELNMiragePlainQuantities)
 
 
 m_package.__init_metainfo__()
