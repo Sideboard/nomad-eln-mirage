@@ -41,5 +41,9 @@ class ELNMirage(EntryData):
 
     plain_quantities = SubSection(section_def=ELNMiragePlainQuantities)
 
+    edit_str = Quantity(
+        type=str, description='Edit string', a_eln={'component': 'StringEditQuantity'}
+    )
+
 
 m_package.__init_metainfo__()

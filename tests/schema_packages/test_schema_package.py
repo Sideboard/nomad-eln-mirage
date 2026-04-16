@@ -4,6 +4,13 @@ import pytest
 from nomad.client import normalize_all, parse
 
 
+def get_archive(filename):
+    test_file = os.path.join('tests', 'data', filename)
+    entry_archive = parse(test_file)[0]
+    normalize_all(entry_archive)
+    return entry_archive
+
+
 @pytest.mark.parametrize(
     'filename,expected',
     [
@@ -28,11 +35,21 @@ from nomad.client import normalize_all, parse
     ],
 )
 def test_plain_quantities(filename: str, expected: dict):
-    test_file = os.path.join('tests', 'data', filename)
-    entry_archive = parse(test_file)[0]
-    normalize_all(entry_archive)
-
+    entry_archive = get_archive(filename)
     data = getattr(entry_archive.data, 'plain_quantities')
     assert data is not None
+    for key, expected_value in expected.items():
+        assert getattr(data, key) == expected_value
+
+
+@pytest.mark.parametrize(
+    'filename,expected',
+    [
+        pytest.param('edit_quantities.archive.yaml', {'edit_str': 'rainbow'}),
+    ],
+)
+def test_edit_quantities(filename: str, expected: dict):
+    entry_archive = get_archive(filename)
+    data = entry_archive.data
     for key, expected_value in expected.items():
         assert getattr(data, key) == expected_value
