@@ -54,6 +54,18 @@ class ELNMirage(EntryData):
         description='Edit float number',
         a_eln={'component': 'NumberEditQuantity'},
     )
+    edit_number_with_shape = Quantity(
+        type=int,
+        shape=['*'],
+        description='Edit number with shape',
+        a_eln={'component': 'NumberEditQuantity'},
+    )
+    edit_number_with_unit = Quantity(
+        type=float,
+        unit='m',
+        description='Edit number with unit',
+        a_eln={'component': 'NumberEditQuantity'},
+    )
     edit_str = Quantity(
         type=str, description='Edit string', a_eln={'component': 'StringEditQuantity'}
     )
